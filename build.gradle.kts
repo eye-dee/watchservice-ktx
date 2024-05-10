@@ -1,8 +1,7 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
-    kotlin("jvm") version "1.3.31"
-    maven
+    kotlin("jvm") version "1.9.23"
 }
 
 group = "dev.vishna"
@@ -14,12 +13,13 @@ repositories {
 }
 
 dependencies {
-    compile(kotlin("stdlib-jdk8"))
-    compile("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.2.1")
-    compile("org.jetbrains.kotlinx:kotlinx-coroutines-jdk8:1.2.1")
+    implementation(kotlin("stdlib-jdk8"))
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.8.1")
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-jdk8:1.8.1")
 
-    testCompile("junit", "junit", "4.12")
-    testCompile("org.amshove.kluent:kluent:1.34")
+    testImplementation("junit", "junit", "4.12")
+    testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.8.1")
+    testImplementation("org.amshove.kluent:kluent:1.34")
 }
 
 tasks.withType<KotlinCompile> {

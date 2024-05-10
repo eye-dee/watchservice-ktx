@@ -59,7 +59,7 @@ class KWatchChannel(
      * Registers this channel to watch any changes in path directory and its subdirectories
      * if applicable. Removes any previous subscriptions.
      */
-    private fun registerPaths() {
+    fun registerPaths() {
         registeredKeys.apply {
             forEach { it.cancel() }
             clear()
@@ -131,7 +131,7 @@ class KWatchChannel(
 
                 if (!monitorKey.reset()) {
                     monitorKey.cancel()
-                    close()
+                    shouldRegisterPath = true
                     break
                 }
                 else if (isClosedForSend) {
@@ -141,14 +141,8 @@ class KWatchChannel(
         }
     }
 
-    override fun close(cause: Throwable?): Boolean {
-        registeredKeys.apply {
-            forEach { it.cancel() }
-            clear()
-        }
-
-        return channel.close(cause)
-    }
+    override fun close(cause: Throwable?): Boolean =
+        channel.close(cause)
 
     /**
      * Describes the mode this channels is running in
